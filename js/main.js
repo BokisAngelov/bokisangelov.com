@@ -13,7 +13,25 @@
     });
   }
 
-  function initReveal(root) {
+  // Types a section label like the path at the top; the cursor goes away when done.
+  function typeLabel(el, doc, delay) {
+    var text = el.textContent;
+    var span = doc.createElement('span');
+    var cursor = doc.createElement('span');
+    cursor.className = 'cursor';
+    cursor.setAttribute('aria-hidden', 'true');
+    el.setAttribute('aria-label', text);
+    el.textContent = '';
+    el.appendChild(span);
+    el.appendChild(cursor);
+    return initTyping(span, text, delay).then(function () {
+      return new Promise(function (resolve) {
+        setTimeout(function () { cursor.remove(); resolve(); }, delay * 12);
+      });
+    });
+  }
+
+  function initReveal(root, typeLabels) {
     var items = root.querySelectorAll('.reveal');
     if (!('IntersectionObserver' in window)) {
       items.forEach(function (n) { n.classList.add('in'); });
@@ -21,7 +39,10 @@
     }
     var io = new IntersectionObserver(function (entries) {
       entries.forEach(function (e) {
-        if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); }
+        if (!e.isIntersecting) return;
+        e.target.classList.add('in');
+        io.unobserve(e.target);
+        if (typeLabels && e.target.hasAttribute('data-type')) typeLabel(e.target, document, 45);
       });
     }, { threshold: 0.15 });
     items.forEach(function (n) { io.observe(n); });
@@ -66,7 +87,7 @@
   }
 
   if (typeof module !== 'undefined' && module.exports) {
-    module.exports = { initTyping: initTyping, initReveal: initReveal, initForm: initForm };
+    module.exports = { initTyping: initTyping, typeLabel: typeLabel, initReveal: initReveal, initForm: initForm };
     return;
   }
 
@@ -74,7 +95,7 @@
   var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   var typed = document.getElementById('typed');
   if (typed && !reduce) initTyping(typed, typed.textContent, 60);
-  initReveal(document);
+  initReveal(document, !reduce);
   var form = document.getElementById('contact-form');
   if (form) initForm(form, document.getElementById('form-status'), window.fetch.bind(window));
 })();

@@ -86,3 +86,26 @@ test('reveal content visible without JS and with reduced motion', () => {
   assert.doesNotMatch(css.replace(block[0], ''), /\.reveal\s*\{[^}]*opacity:\s*0/);
   assert.match(html, /<script>document\.documentElement\.classList\.add\('js'\);/);
 });
+
+test('section labels are marked for typing', () => {
+  const html = readFileSync(new URL('../index.html', import.meta.url), 'utf8');
+  const labels = [...html.matchAll(/class="label reveal" data-type[^>]*>([^<]+)</g)].map((m) => m[1]);
+  assert.deepEqual(labels, ['// what I do', '// skills', '// how I work', '// contact']);
+});
+
+test('typeLabel types the text with a cursor that goes away at the end', async () => {
+  const { typeLabel } = require('../js/main.js');
+  const cursor = { removed: false, remove() { this.removed = true; } };
+  const el = {
+    textContent: '// skills',
+    attrs: {},
+    setAttribute(k, v) { this.attrs[k] = v; },
+    appendChild(c) { this.child = c; },
+  };
+  let created;
+  const doc = { createElement: () => (created = { className: '', setAttribute() {}, remove: cursor.remove.bind(cursor) }) };
+  await typeLabel(el, doc, 0);
+  assert.equal(el.attrs['aria-label'], '// skills');
+  assert.equal(created.className, 'cursor');
+  assert.ok(cursor.removed);
+});

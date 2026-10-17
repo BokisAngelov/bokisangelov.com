@@ -70,6 +70,7 @@ section { padding: 64px 0; border-bottom: 1px solid var(--line); }
   font-weight: 400;
   color: var(--accent);
   margin: 0 0 18px;
+  min-height: 1.55em;
 }
 section h2:not(.label) { font-size: 28px; margin: 0 0 22px; }
 
