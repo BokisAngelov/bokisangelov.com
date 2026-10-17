@@ -35,10 +35,11 @@ ul { list-style: none; margin: 0; padding: 0; }
   display: flex;
   gap: 36px;
   align-items: center;
-  /* Tall enough that only the first section label is in view on load. */
-  min-height: 78vh;
-  min-height: 78svh;
-  padding: 104px 0 80px;
+  /* Leaves room for the whole What I do section on the first screen;
+     290px = that section down to the bottom of its blocks, plus a small gap. */
+  min-height: calc(100vh - 290px);
+  min-height: calc(100svh - 290px);
+  padding: 72px 0 48px;
   border-bottom: 1px solid var(--line);
 }
 .photo {

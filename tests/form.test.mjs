@@ -110,9 +110,10 @@ test('typeLabel types the text with a cursor that goes away at the end', async (
   assert.ok(cursor.removed);
 });
 
-test('hero is tall enough that only the first section label shows on load', () => {
+test('hero leaves room for the whole What I do section on the first screen', () => {
   const css = readFileSync(new URL('../css/style.css', import.meta.url), 'utf8');
-  assert.match(css, /\.hero \{[^}]*min-height: 78vh;[^}]*min-height: 78svh;/);
+  // 290px = the What I do section down to the bottom of its blocks, plus a small gap.
+  assert.match(css, /\.hero \{[^}]*min-height: calc\(100vh - 290px\);[^}]*min-height: calc\(100svh - 290px\);/);
 });
 
 test('typing runs one at a time, in order', async () => {
