@@ -7,7 +7,7 @@ Personal one-page site of Bokis Angelov. Plain HTML, CSS and a little JavaScript
 - Styles: `css/style.css`
 - Motion and contact form: `js/main.js`
 
-Push to `main` and GitHub Pages publishes within a minute.
+Push to `main`. GitHub Actions (`.github/workflows/pages.yml`) runs the tests and publishes only if they pass; a failed run leaves the live site as it was. Check runs in the repo Actions tab.
 
 ## Test
 ```
