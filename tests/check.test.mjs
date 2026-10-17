@@ -79,3 +79,13 @@ test('goatcounter is the only external script', () => {
   const external = [...h.matchAll(/<script[^>]+src="((?:https?:)?\/\/[^"]+)"/g)].map((m) => m[1]);
   assert.deepEqual(external, ['https://gc.zgo.at/count.js']);
 });
+
+test('external links open in a new tab', () => {
+  const links = [...html().matchAll(/<a\b[^>]*href="(https?:\/\/[^"]+)"[^>]*>/g)]
+    .filter((m) => !m[1].startsWith('https://bokisangelov.com'));
+  assert.ok(links.length > 0, 'expected at least the LinkedIn link');
+  for (const [tag, href] of links) {
+    assert.match(tag, /target="_blank"/, `${href} opens in the same tab`);
+    assert.match(tag, /rel="[^"]*noopener[^"]*"/, `${href} lacks rel=noopener`);
+  }
+});
