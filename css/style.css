@@ -35,6 +35,9 @@ ul { list-style: none; margin: 0; padding: 0; }
   display: flex;
   gap: 36px;
   align-items: center;
+  /* Tall enough that only the first section label is in view on load. */
+  min-height: 78vh;
+  min-height: 78svh;
   padding: 104px 0 80px;
   border-bottom: 1px solid var(--line);
 }
@@ -133,7 +136,7 @@ footer p { color: var(--muted); font-size: 13px; margin: 0; padding: 28px 0; }
 
 /* --- phones --- */
 @media (max-width: 640px) {
-  .hero { flex-direction: column; align-items: flex-start; gap: 24px; padding: 64px 0 56px; }
+  .hero { flex-direction: column; align-items: flex-start; justify-content: center; gap: 24px; padding: 64px 0 56px; }
   .photo { width: 112px; height: 112px; }
   h1 { font-size: 36px; }
   .lead { font-size: 17px; }

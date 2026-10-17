@@ -13,20 +13,30 @@
     });
   }
 
+  // One typing animation at a time: each task starts when the previous one ends.
+  var typingQueue = Promise.resolve();
+  function queueTyping(task) {
+    typingQueue = typingQueue.then(task);
+    return typingQueue;
+  }
+
   // Types a section label like the path at the top; the cursor goes away when done.
+  // The label is blanked at once, then types when its turn in the queue comes.
   function typeLabel(el, doc, delay) {
     var text = el.textContent;
-    var span = doc.createElement('span');
-    var cursor = doc.createElement('span');
-    cursor.className = 'cursor';
-    cursor.setAttribute('aria-hidden', 'true');
     el.setAttribute('aria-label', text);
     el.textContent = '';
-    el.appendChild(span);
-    el.appendChild(cursor);
-    return initTyping(span, text, delay).then(function () {
-      return new Promise(function (resolve) {
-        setTimeout(function () { cursor.remove(); resolve(); }, delay * 12);
+    return queueTyping(function () {
+      var span = doc.createElement('span');
+      var cursor = doc.createElement('span');
+      cursor.className = 'cursor';
+      cursor.setAttribute('aria-hidden', 'true');
+      el.appendChild(span);
+      el.appendChild(cursor);
+      return initTyping(span, text, delay).then(function () {
+        return new Promise(function (resolve) {
+          setTimeout(function () { cursor.remove(); resolve(); }, delay * 12);
+        });
       });
     });
   }
@@ -87,14 +97,18 @@
   }
 
   if (typeof module !== 'undefined' && module.exports) {
-    module.exports = { initTyping: initTyping, typeLabel: typeLabel, initReveal: initReveal, initForm: initForm };
+    module.exports = { initTyping: initTyping, queueTyping: queueTyping, typeLabel: typeLabel, initReveal: initReveal, initForm: initForm };
     return;
   }
 
   clearTimeout(window.jsFallback);
   var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   var typed = document.getElementById('typed');
-  if (typed && !reduce) initTyping(typed, typed.textContent, 60);
+  if (typed && !reduce) {
+    var path = typed.textContent;
+    typed.textContent = '';
+    queueTyping(function () { return initTyping(typed, path, 60); });
+  }
   initReveal(document, !reduce);
   var form = document.getElementById('contact-form');
   if (form) initForm(form, document.getElementById('form-status'), window.fetch.bind(window));

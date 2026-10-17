@@ -109,3 +109,26 @@ test('typeLabel types the text with a cursor that goes away at the end', async (
   assert.equal(created.className, 'cursor');
   assert.ok(cursor.removed);
 });
+
+test('hero is tall enough that only the first section label shows on load', () => {
+  const css = readFileSync(new URL('../css/style.css', import.meta.url), 'utf8');
+  assert.match(css, /\.hero \{[^}]*min-height: 78vh;[^}]*min-height: 78svh;/);
+});
+
+test('typing runs one at a time, in order', async () => {
+  const { queueTyping } = require('../js/main.js');
+  const log = [];
+  const wait = (ms) => new Promise((r) => setTimeout(r, ms));
+  const a = queueTyping(async () => { log.push('a-start'); await wait(30); log.push('a-end'); });
+  const b = queueTyping(async () => { log.push('b-start'); });
+  await Promise.all([a, b]);
+  assert.deepEqual(log, ['a-start', 'a-end', 'b-start']);
+});
+
+test('a label waiting its turn is blank, not showing the full text', () => {
+  const { typeLabel } = require('../js/main.js');
+  const el = { textContent: '// contact', setAttribute() {}, appendChild() {} };
+  const doc = { createElement: () => ({ setAttribute() {}, remove() {} }) };
+  typeLabel(el, doc, 0);
+  assert.equal(el.textContent, '');
+});
