@@ -84,5 +84,5 @@ test('reveal content visible without JS and with reduced motion', () => {
   assert.ok(block, 'no-preference media block missing');
   assert.match(block[1], /\.js \.reveal\s*\{[^}]*opacity:\s*0/);
   assert.doesNotMatch(css.replace(block[0], ''), /\.reveal\s*\{[^}]*opacity:\s*0/);
-  assert.match(html, /<script>document\.documentElement\.classList\.add\('js'\)<\/script>/);
+  assert.match(html, /<script>document\.documentElement\.classList\.add\('js'\);/);
 });

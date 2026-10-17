@@ -128,7 +128,7 @@ button:disabled { opacity: .6; cursor: wait; }
 
 .links { margin: 26px 0 0; display: flex; flex-wrap: wrap; gap: 8px 22px; }
 
-footer p { color: #6b7480; font-size: 13px; margin: 0; padding: 28px 0; }
+footer p { color: var(--muted); font-size: 13px; margin: 0; padding: 28px 0; }
 
 /* --- phones --- */
 @media (max-width: 640px) {
@@ -163,7 +163,9 @@ footer p { color: #6b7480; font-size: 13px; margin: 0; padding: 28px 0; }
   .grid .reveal:nth-child(4) { transition-delay: .24s; }
 
   .box { transition: border-color .25s, transform .25s; }
-  .box:hover { border-color: var(--accent); transform: translateY(-2px); }
+  .box:hover { border-color: var(--accent); }
+  .js .box.reveal { transition: opacity .6s ease, transform .6s ease, border-color .25s; }
+  .js .box.reveal.in:hover { transform: translateY(-2px); transition-delay: 0s; }
   .tag { transition: background-color .2s; }
   .tag:hover { background: #13302d; }
   input, textarea, button { transition: border-color .2s, filter .2s; }

@@ -36,7 +36,7 @@
     return data;
   }
 
-  function initForm(form, status, fetchFn) {
+  function initForm(form, status, fetchFn, timeoutMs) {
     var button = form.querySelector('button');
     form.addEventListener('submit', function (e) {
       e.preventDefault();
@@ -44,14 +44,19 @@
       button.disabled = true;
       status.className = '';
       status.textContent = 'Sending…';
+      // A hanging request ends in the error message instead of "Sending…" forever.
+      var ctrl = new AbortController();
+      var timer = setTimeout(function () { ctrl.abort(); }, timeoutMs || 15000);
       return fetchFn(form.action, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
         body: JSON.stringify(formData(form)),
+        signal: ctrl.signal,
       })
         .then(function (res) { return res.json().then(function (j) { return res.ok && j.success; }); })
         .catch(function () { return false; })
         .then(function (ok) {
+          clearTimeout(timer);
           status.className = ok ? 'ok' : 'err';
           status.textContent = ok ? 'Thanks, message sent.' : ERROR_TEXT;
           if (ok) form.reset();
@@ -65,6 +70,7 @@
     return;
   }
 
+  clearTimeout(window.jsFallback);
   var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   var typed = document.getElementById('typed');
   if (typed && !reduce) initTyping(typed, typed.textContent, 60);
