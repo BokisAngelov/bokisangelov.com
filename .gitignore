@@ -1,0 +1,5 @@
+*.psd
+bokisProfile_PK.jpg
+.DS_Store
+node_modules/
+.superpowers/

@@ -1,0 +1,85 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Bokis Angelov</title>
+  <link rel="stylesheet" href="css/style.css">
+  <script src="js/main.js" defer></script>
+</head>
+<body>
+  <main class="wrap">
+
+    <header class="hero">
+      <picture>
+        <source type="image/webp" srcset="img/photo-140.webp 1x, img/photo-280.webp 2x">
+        <img class="photo" src="img/photo-140.jpg" srcset="img/photo-280.jpg 2x" width="140" height="140" alt="Bokis Angelov">
+      </picture>
+      <div>
+        <p class="path mono"><span id="typed">~/bokis-angelov</span><span class="cursor" aria-hidden="true"></span></p>
+        <h1 class="reveal">Bokis Angelov</h1>
+        <p class="sub reveal">Senior Software Engineer &amp; Team Lead</p>
+        <p class="lead reveal">Web platforms from architecture to launch, and AI automation that takes repeated steps out of everyday procedures.</p>
+        <ul class="tags reveal" aria-label="Focus">
+          <li class="tag">python</li><li class="tag">php</li><li class="tag">ai-agents</li>
+        </ul>
+      </div>
+    </header>
+
+    <section aria-labelledby="h-what">
+      <h2 id="h-what" class="label reveal">// what I do</h2>
+      <div class="grid">
+        <article class="box reveal"><h3>Architecture</h3><p>Systems that are simple to run and easy to change.</p></article>
+        <article class="box reveal"><h3>Full-stack development</h3><p>Python, PHP and JavaScript, from database to browser.</p></article>
+        <article class="box reveal"><h3>AI and automation</h3><p>Agents and scripts that take over repeated manual work.</p></article>
+        <article class="box reveal"><h3>Leading developers</h3><p>Code review, testing, mentoring and planning.</p></article>
+      </div>
+    </section>
+
+    <section aria-labelledby="h-skills">
+      <h2 id="h-skills" class="label reveal">// skills</h2>
+      <dl class="skills">
+        <div class="row reveal"><dt>Backend</dt><dd><span class="tag">Python</span><span class="tag">Django</span><span class="tag">PHP</span><span class="tag">MySQL</span><span class="tag">REST APIs</span></dd></div>
+        <div class="row reveal"><dt>Frontend</dt><dd><span class="tag">JavaScript</span><span class="tag">HTML</span><span class="tag">CSS</span></dd></div>
+        <div class="row reveal"><dt>CMS &amp; e-learning</dt><dd><span class="tag">WordPress</span><span class="tag">Moodle</span><span class="tag">LearnDash</span></dd></div>
+        <div class="row reveal"><dt>AI &amp; automation</dt><dd><span class="tag">Claude Code</span><span class="tag">AI agents</span><span class="tag">LLM integration</span><span class="tag">Workflow automation</span></dd></div>
+        <div class="row reveal"><dt>Practice</dt><dd><span class="tag">Git</span><span class="tag">CI/CD</span><span class="tag">Automated testing</span><span class="tag">Code review</span><span class="tag">Agile</span></dd></div>
+      </dl>
+    </section>
+
+    <section class="how" aria-labelledby="h-how">
+      <h2 id="h-how" class="label reveal">// how I work</h2>
+      <ul>
+        <li class="reveal">Plan first, then build.</li>
+        <li class="reveal">Write it down, so you can understand it.</li>
+        <li class="reveal">Automate the steps people repeat.</li>
+      </ul>
+    </section>
+
+    <section aria-labelledby="h-contact">
+      <p class="label reveal">// contact</p>
+      <h2 id="h-contact" class="reveal">Want to talk about something?</h2>
+      <form id="contact-form" class="reveal" action="https://api.web3forms.com/submit" method="POST">
+        <input type="hidden" name="access_key" value="5f452f17-3522-4681-bc66-075861c9c717">
+        <input type="hidden" name="subject" value="New message from bokisangelov.com">
+        <input type="hidden" name="from_name" value="bokisangelov.com">
+        <input type="checkbox" name="botcheck" class="hp" tabindex="-1" autocomplete="off" aria-hidden="true">
+        <label for="f-name">Name</label>
+        <input id="f-name" name="name" type="text" autocomplete="name" required>
+        <label for="f-email">Email</label>
+        <input id="f-email" name="email" type="email" autocomplete="email" required>
+        <label for="f-message">Message</label>
+        <textarea id="f-message" name="message" rows="5" required></textarea>
+        <button type="submit">Send</button>
+        <p id="form-status" role="status" aria-live="polite"></p>
+      </form>
+      <p class="links reveal">
+        <a href="https://www.linkedin.com/in/bokis-angelov/" rel="me">LinkedIn</a>
+        <a href="mailto:bokisangelov@gmail.com">bokisangelov@gmail.com</a>
+      </p>
+    </section>
+
+  </main>
+  <footer class="wrap"><p>© 2026 Bokis Angelov</p></footer>
+</body>
+</html>
