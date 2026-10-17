@@ -51,7 +51,8 @@ test('no banned words', () => {
 
 test('no external requests on load', () => {
   const h = html();
-  assert.doesNotMatch(h, /<script[^>]+src=["']https?:/i);
+  // GoatCounter (async, analytics only) is the one allowed exception; see the next test.
+  assert.doesNotMatch(h.replace(/<script data-goatcounter[^>]*><\/script>/, ''), /<script[^>]+src=["'](?:https?:)?\/\//i);
   assert.doesNotMatch(h, /<link[^>]+rel=["']stylesheet["'][^>]+href=["']https?:/i);
   assert.doesNotMatch(h, /fonts\.googleapis|fonts\.gstatic/i);
 });
@@ -70,4 +71,11 @@ test('form wiring', () => {
 
 test('photo has size and alt', () => {
   assert.match(html(), /<img[^>]+width="140"[^>]+height="140"[^>]+alt="Bokis Angelov"/);
+});
+
+test('goatcounter is the only external script', () => {
+  const h = html();
+  assert.match(h, /<script data-goatcounter="https:\/\/bokis\.goatcounter\.com\/count" async src="https:\/\/gc\.zgo\.at\/count\.js"><\/script>/);
+  const external = [...h.matchAll(/<script[^>]+src="((?:https?:)?\/\/[^"]+)"/g)].map((m) => m[1]);
+  assert.deepEqual(external, ['https://gc.zgo.at/count.js']);
 });
