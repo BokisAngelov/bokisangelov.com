@@ -1,0 +1,83 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>What I stopped doing by hand — Bokis Angelov</title>
+  <meta name="description" content="How I used AI and automation to cut site setup, employee on/offboarding and deployments from hours to minutes, and how you can do the same.">
+  <link rel="canonical" href="https://bokisangelov.com/articles/what-i-stopped-doing-by-hand/">
+  <meta property="og:type" content="article">
+  <meta property="og:title" content="What I stopped doing by hand: four automations that gave my team its time back">
+  <meta property="og:description" content="Site setup, on/offboarding and deployments, from hours to minutes. What I automated and how you can start.">
+  <meta property="og:image" content="https://bokisangelov.com/img/og.png">
+  <meta property="og:url" content="https://bokisangelov.com/articles/what-i-stopped-doing-by-hand/">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="theme-color" content="#0e1116">
+  <link rel="icon" href="/favicon.ico" sizes="any">
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+  <main class="wrap">
+    <article class="post">
+      <p class="back mono"><a href="/">~/bokis-angelov</a></p>
+      <p class="label"><time datetime="2026-10-17">17 Oct 2026</time> · 6 min read</p>
+      <h1>What I stopped doing by hand: four automations that gave my team its time back</h1>
+
+      <p>I lead a small development team. Over the years we have built more than a hundred web platforms: project websites, e-learning platforms, internal tools. If you build at that pace, you notice something early on. A surprising share of the week is spent on tasks that are not hard, just repetitive.</p>
+      <p>Creating a new site. Setting up an account for a new colleague. Copying files to a server and hoping nothing breaks. None of it needs creativity, but all of it needs attention, because a small slip costs hours later.</p>
+      <p>This year I decided to stop doing those tasks by hand. I used AI as a working partner to design, build and test the automations, and I kept the rule that a person stays in charge of every decision that matters. Here is what changed, and how you could do the same in your team or company.</p>
+
+      <h2>The numbers first</h2>
+      <div class="table">
+        <table>
+          <thead><tr><th>Task</th><th>Before</th><th>Now</th></tr></thead>
+          <tbody>
+            <tr><td>New website or e-learning platform setup</td><td>about 2 hours</td><td>a few minutes</td></tr>
+            <tr><td>Employee onboarding or offboarding</td><td>45 minutes to 1 hour</td><td>about 5 minutes</td></tr>
+            <tr><td>Deploying an update</td><td>about 30 minutes, with no checks</td><td>automatic, with checks on every change</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p>These are not lab numbers. They are the everyday tasks my team and I did every week.</p>
+
+      <h2>1. New site setup: from a 2-hour checklist to one command</h2>
+      <p><strong>The pain.</strong> Every new platform started from our base template. Someone had to create the hosting account, copy the template, create the database, connect it, set new passwords, and then work through a long settings checklist. It took about two hours. And since people do things slightly differently, no two sites were set up exactly alike.</p>
+      <p><strong>What runs now.</strong> One script creates the hosting space (or a subdomain), clones the base template on the server, creates the database, sets fresh passwords and removes what should not go live. The developer then opens a single "site setup" screen inside the platform, fills in the project details and applies the standard settings in one go. Our existing quality check still runs at the end, as before. It just finds much less.</p>
+      <p><strong>How you can start.</strong> You probably already have a setup document or checklist. That is your specification. Go through it line by line and mark each step "same every time" or "needs judgment". Automate the first group only. The judgment steps stay with people, and that is fine.</p>
+
+      <h2>2. On/offboarding: 5 minutes, and nothing forgotten</h2>
+      <p><strong>The pain.</strong> A new colleague needs an email account, calendar access, the right groups, a project-management account with the correct team and working hours, and a welcome email. A leaver needs the opposite, and the order matters: lock the account, archive the mailbox, hand files to the manager, reassign open tasks, remove access everywhere. Doing this by hand took close to an hour, and the risk was not the time. It was the one step someone forgets.</p>
+      <p><strong>What runs now.</strong> I type one request in plain words, for example the person's name, role, team and personal email. The automation checks everything first and shows me a full preview of what it is about to do. Only after I confirm does it make the changes across all systems. For leavers it secures the account, starts the archive and the file transfer, and reassigns tasks. Whatever still has to be done by hand is listed at the end, so nothing falls through the cracks.</p>
+      <p><strong>How you can start.</strong> Most tools you already use (email, calendar, project management) have an API. Start with onboarding, because it is lower risk: creating things is easier to undo than removing them. Once it works, build offboarding on the same base.</p>
+
+      <h2>3. Auto-deploy: merge and walk away</h2>
+      <p><strong>The pain.</strong> Deploying an update meant packing files, uploading them to the server, replacing the old version and clicking around to see if the site still worked. About thirty minutes each time, with no real checks, and some nervousness every time.</p>
+      <p><strong>What runs now.</strong> When a change is merged into the main branch, the pipeline packs only the files that belong on the server and sends them there. On the server, one fixed script takes over. It checks the package, backs up the current version, puts the new one in place and tests that the site still answers correctly. If it does not, the script restores the backup by itself and the person who merged gets a notification. A failed deploy never leaves the site broken.</p>
+      <p>The deploy access is locked down to that one job and nothing else.</p>
+      <p><strong>How you can start.</strong> Most code hosting platforms include a pipeline feature. Begin with the boring version: deploy on merge, keep a backup, test one page. Add the automatic rollback next. That is the part that lets you stop worrying.</p>
+
+      <h2>4. Automatic checks before merge</h2>
+      <p><strong>The pain.</strong> Code review used to cover everything, from real logic problems to formatting, typos and accidentally committed passwords. Reviewers spent their attention on things a machine can spot.</p>
+      <p><strong>What runs now.</strong> Every pull request runs automatic checks before review: a scan for leaked secrets and keys, coding-standard checks and static analysis that catch bugs and security issues before a person reads the code. The deploy adds a syntax check of its own. People review what people are good at: design, logic, and "is this the right solution?".</p>
+      <p><strong>How you can start.</strong> Add a secret scanner first. It is quick to set up and protects you from the most expensive mistake. Then add a linter and a static analyser for your main language. If your old code has many warnings, start with a baseline so only new problems block a merge.</p>
+
+      <h2>What I learned</h2>
+      <p><strong>Preview before action.</strong> Every automation that changes something shows me exactly what it will do and waits for a "yes". This one rule is what made me comfortable letting automations touch real accounts and live servers.</p>
+      <p><strong>Never guess.</strong> If a team name does not exist, or a name matches two people, the automation stops and lists the options. A wrong guess done automatically is worse than a slow manual step.</p>
+      <p><strong>AI is a strong partner, not the boss.</strong> I used AI to write designs, code and tests, and to review its own work. It was faster than doing it all myself, by a lot. But every decision about what should happen, what should stay manual, and what is risky stayed with me.</p>
+      <p><strong>Automate the boring 80%, leave the rest.</strong> Each of these automations still has a few manual steps on purpose. Chasing 100% often costs more than it saves.</p>
+      <p><strong>Write it down as you go.</strong> Each automation has a short document that says what it does, what is still manual and where to pick up next time. Six months from now, that is what will save you, or the colleague who takes it over.</p>
+
+      <h2>Where to start in your team</h2>
+      <p>Pick the task your team complains about most that is also the same every time. Write the steps down, mark which ones need judgment, and automate the rest with a preview and a confirmation in front of it. Measure the time before and after.</p>
+      <p>Then do the next one.</p>
+
+      <p class="post-end">Working on something similar, or want to compare notes? <a href="/#h-contact">Get in touch</a>.</p>
+    </article>
+  </main>
+  <footer class="wrap"><p>© 2026 Bokis Angelov</p></footer>
+  <script data-goatcounter="https://bokis.goatcounter.com/count" async src="https://gc.zgo.at/count.js"></script>
+</body>
+</html>

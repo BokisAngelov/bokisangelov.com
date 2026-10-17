@@ -135,6 +135,30 @@ button:disabled { opacity: .6; cursor: wait; }
 
 footer p { color: var(--muted); font-size: 13px; margin: 0; padding: 28px 0; }
 
+/* --- writing list (home) --- */
+.posts li { border-top: 1px solid var(--line); }
+.posts li:last-child { border-bottom: 1px solid var(--line); }
+.posts a { display: block; padding: 16px 0; color: var(--text); }
+.posts a:hover { text-decoration: none; }
+.posts a:hover .post-title { color: var(--accent); }
+.post-title { display: block; font-size: 18px; font-weight: 600; }
+.post-meta { display: block; color: var(--muted); font-size: 13px; margin-top: 4px; }
+
+/* --- article page --- */
+.post { max-width: 680px; padding: 56px 0 64px; border-bottom: 1px solid var(--line); }
+.post .back { font-size: 14px; line-height: 1.55; margin: 0 0 40px; }
+.post .label { color: var(--accent); font-size: 13px; line-height: 1.55; margin: 0 0 12px; }
+.post h1 { font-size: 36px; letter-spacing: -.5px; margin: 0 0 32px; }
+.post h2 { font-size: 22px; margin: 44px 0 14px; }
+.post p { color: var(--soft); font-size: 17px; line-height: 1.7; margin: 0 0 18px; }
+.post strong { color: var(--text); }
+.post .table { overflow-x: auto; margin: 0 0 18px; }
+.post table { width: 100%; border-collapse: collapse; font-size: 15px; }
+.post th, .post td { text-align: left; padding: 10px 12px; border-bottom: 1px solid var(--line); vertical-align: top; }
+.post th { color: var(--muted); font-weight: 400; font-size: 13px; }
+.post td:last-child { color: var(--accent); }
+.post .post-end { margin-top: 40px; padding-top: 24px; border-top: 1px solid var(--line); }
+
 /* --- phones --- */
 @media (max-width: 640px) {
   .hero { flex-direction: column; align-items: flex-start; justify-content: center; gap: 24px; padding: 64px 0 56px; }
@@ -143,6 +167,9 @@ footer p { color: var(--muted); font-size: 13px; margin: 0; padding: 28px 0; }
   .lead { font-size: 17px; }
   section { padding: 48px 0; }
   .grid { grid-template-columns: 1fr 1fr; }
+  .post { padding: 40px 0 48px; }
+  .post h1 { font-size: 28px; }
+  .post p { font-size: 16px; }
 }
 @media (max-width: 420px) {
   .grid { grid-template-columns: 1fr; }

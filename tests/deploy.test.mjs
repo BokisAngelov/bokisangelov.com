@@ -14,6 +14,6 @@ test('deploy waits for the tests', () => {
 
 test('published files exclude tests and repo tooling', () => {
   const y = wf();
-  assert.match(y, /cp -r index\.html 404\.html thanks\.html css js img favicon\.svg favicon\.ico apple-touch-icon\.png robots\.txt sitemap\.xml CNAME _site\//);
+  assert.match(y, /cp -r index\.html 404\.html thanks\.html articles css js img favicon\.svg favicon\.ico apple-touch-icon\.png robots\.txt sitemap\.xml CNAME _site\//);
   assert.match(y, /path: _site/);
 });

@@ -90,7 +90,7 @@ test('reveal content visible without JS and with reduced motion', () => {
 test('section labels are marked for typing', () => {
   const html = readFileSync(new URL('../index.html', import.meta.url), 'utf8');
   const labels = [...html.matchAll(/class="label reveal" data-type[^>]*>([^<]+)</g)].map((m) => m[1]);
-  assert.deepEqual(labels, ['// what I do', '// skills', '// how I work', '// contact']);
+  assert.deepEqual(labels, ['// what I do', '// skills', '// how I work', '// writing', '// contact']);
 });
 
 test('typeLabel types the text with a cursor that goes away at the end', async () => {
