@@ -1,6 +1,4 @@
-# bokisangelov.com
-
-Personal website of Bokis Angelov, senior software engineer and team lead.
+My personal website
 
 https://bokisangelov.com
 
