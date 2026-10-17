@@ -34,3 +34,7 @@ test('og image is 1200x630', () => {
   assert.equal(png.readUInt32BE(16), 1200);
   assert.equal(png.readUInt32BE(20), 630);
 });
+
+test('CNAME points Pages at the custom domain', () => {
+  assert.equal(read('CNAME').trim(), 'bokisangelov.com');
+});
