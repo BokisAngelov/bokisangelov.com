@@ -131,7 +131,7 @@ button:disabled { opacity: .6; cursor: wait; }
 #form-status.ok { color: var(--accent); }
 #form-status.err { color: #f59e8b; }
 
-.links { margin: 26px 0 0; display: flex; flex-wrap: wrap; gap: 8px 22px; }
+.links { margin: 0; display: flex; flex-wrap: wrap; gap: 8px 22px; }
 
 footer p { color: var(--muted); font-size: 13px; margin: 0; padding: 28px 0; }
 
