@@ -29,7 +29,6 @@ const COPY = [
   'Automate the steps people repeat.',
   'Want to talk about something?',
   'https://www.linkedin.com/in/bokis-angelov/',
-  'mailto:bokisangelov@gmail.com',
   '© 2026 Bokis Angelov',
 ];
 
