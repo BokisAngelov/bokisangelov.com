@@ -61,7 +61,8 @@
   function formData(form) {
     var data = {};
     Array.prototype.forEach.call(form.elements, function (el) {
-      if (!el.name || (el.type === 'checkbox' && !el.checked)) return;
+      // redirect is only for the no-JS fallback post.
+      if (!el.name || el.name === 'redirect' || (el.type === 'checkbox' && !el.checked)) return;
       data[el.name] = el.value;
     });
     return data;

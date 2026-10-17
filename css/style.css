@@ -93,7 +93,7 @@ section h2:not(.label) { font-size: 28px; margin: 0 0 22px; }
 .row dd { margin: 0; }
 
 .how li { font-size: 19px; margin-bottom: 12px; }
-.how li::before { content: "→ "; color: var(--accent); }
+.how li::before { content: "→ " / ""; color: var(--accent); }
 
 /* --- contact --- */
 form { max-width: 480px; }

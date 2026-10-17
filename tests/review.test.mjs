@@ -63,3 +63,37 @@ test('form gives up after the timeout and shows the error', async () => {
   assert.ok(sawSignal, "fetch was not given an AbortSignal");
   assert.match(status.textContent, /bokisangelov@gmail\.com/);
 });
+
+test('form without JS returns to a thank-you page on this site', () => {
+  const html = read('index.html');
+  assert.match(html, /<input type="hidden" name="redirect" value="https:\/\/bokisangelov.com\/thanks.html">/);
+  const thanks = read('thanks.html');
+  assert.match(thanks, /<h1>Thanks, message sent\.<\/h1>/);
+  assert.match(thanks, /href="\/"/);
+  assert.match(thanks, /<meta name="robots" content="noindex">/);
+});
+
+test('JS submit does not send the no-JS redirect field', async () => {
+  const listeners = {};
+  const form = {
+    elements: [{ name: 'redirect', type: 'hidden', value: 'x' }, { name: 'name', type: 'text', value: 'Ann' }],
+    action: 'x', reset() {},
+    querySelector: () => ({ disabled: false }),
+    addEventListener: (t, fn) => { listeners[t] = fn; },
+  };
+  let body;
+  initForm(form, { textContent: '', className: '' }, async (u, o) => {
+    body = JSON.parse(o.body);
+    return { ok: true, json: async () => ({ success: true }) };
+  });
+  await listeners.submit({ preventDefault() {} });
+  assert.deepEqual(body, { name: 'Ann' });
+});
+
+test('arrow before How I work lines is silent for screen readers', () => {
+  assert.match(read('css/style.css'), /\.how li::before \{ content: "→ " \/ ""; /);
+});
+
+test('404 page has a main heading', () => {
+  assert.match(read('404.html'), /<h1>Page not found<\/h1>/);
+});
